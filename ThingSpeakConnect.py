@@ -3,12 +3,12 @@ import http.client, urllib, socket
 
 def postToThingspeak(payload):  
     headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
-    not_connected = 1
+    not_connected = True
     while (not_connected):
         try:
             conn = http.client.HTTPConnection("api.thingspeak.com:80")
             conn.connect()
-            not_connected = 0
+            not_connected = False
         except (http.client.HTTPException, socket.error) as ex:
             print('error: %s' %ex)
             time.sleep(5)  #retry after 5 seconds delay
