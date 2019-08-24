@@ -58,9 +58,9 @@ try:
                 print('humidity < 60%, watering 30 sec...\n')
                 threadDispatcher('WATERING')
                 wateringTimer = time.time()
-        if (humidity is not None and (humidity < 0.0 or humidity > 100.0)) or (temperature is not None and (temperature < 0.0 or temperature > 50.0)):
-            print('sensor misfunction, force close valve')
-            closeValve()
+            if (humidity is not None and (humidity < 0.0 or humidity > 100.0)) or (temperature is not None and (temperature < 0.0 or temperature > 50.0)):
+                print('sensor misfunction, force close valve')
+                closeValve()
             
 except KeyboardInterrupt:
     closeValve()    #probably not thread-safe, must check
