@@ -44,7 +44,10 @@ try:
                 print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
                 thingSpeakParams = urllib.parse.urlencode({'field1': temperature, 'field2': humidity, 'key': thingSpeakApiKey})
                 threadDispatcher('UPLOAD_DATA',thingSpeakParams)                
-                dataUploadTimer = time.time() + timeCalibration               
+                dataUploadTimer = time.time() + timeCalibration
+            if (humidity is not None and (humidity < 0.0 or humidity > 100.0)) or (temperature is not None and (temperature < 0.0 or temperature > 50.0)):
+                print('sensor misfunction, force close valve')
+                closeValve()
         if humidity is not None and humidity < 60.0 and temperature is not None:
             if temperature >= hotTemp and (loopTimer - wateringTimer) >= wateringTimeout:           
                 print('humidity < 60%, watering 30 sec...\n')
@@ -58,10 +61,7 @@ try:
                 print('humidity < 60%, watering 30 sec...\n')
                 threadDispatcher('WATERING')
                 wateringTimer = time.time()
-            if (humidity is not None and (humidity < 0.0 or humidity > 100.0)) or (temperature is not None and (temperature < 0.0 or temperature > 50.0)):
-                print('sensor misfunction, force close valve')
-                closeValve()
-            
+                        
 except KeyboardInterrupt:
     closeValve()    #probably not thread-safe, must check
     print('DHT22 watering system stpped')
