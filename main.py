@@ -4,13 +4,13 @@ import urllib
 import Adafruit_DHT
 import RPi.GPIO as GPIO
 import logging
+from calibration import calibration
 from ValveControl import closeValve, watering30sec
 from ThreadDispatcher import threadDispatcher
 
 sensorType = Adafruit_DHT.DHT22
 sensorPin = 4   #GPIO 04(pin #7)
 tempCalibrationOffset = -0.0    #sensor calibration,based on mechanic temp/hydro meter
-humidCalibrationOffset = -4.0
 timeCalibration = -0.5       #timing error calibration
 dataUploadTimeout = 300.0    #upload sensor data to ThingSpeak every 5 minutes
 wateringTimeout = 3600.0     #watering timeout(1 hour)
@@ -39,7 +39,7 @@ try:
         if ((loopTimer - dataUploadTimer) >= dataUploadTimeout):
             humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
             temperature += tempCalibrationOffset
-            humidity += humidCalibrationOffset
+            humidity = calibration(humidity)
             if humidity is not None and temperature is not None:
                 print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
                 thingSpeakParams = urllib.parse.urlencode({'field1': temperature, 'field2': humidity, 'key': thingSpeakApiKey})
