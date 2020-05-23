@@ -31,3 +31,9 @@ Python 3.7.4
 
 ![Imgur](https://i.imgur.com/tcpmOL1.png)
 
+## Note
+
+For my experience, the DHT22 sensor is not durable, always cracks in 3 or less months(especially in high humidity environment).
+Failed to read data, no response, lost of accuracy even if manually calibration ...all like these.
+I bought it 5 times from different vendors and still have no luck.
+If you are considering a durable sensor, you may try another one like the BME280 but not this one.
