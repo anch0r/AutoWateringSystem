@@ -46,8 +46,9 @@ try:
                 threadDispatcher('UPLOAD_DATA',thingSpeakParams)                
                 dataUploadTimer = time.time() + timeCalibration
             if (humidity is not None and (humidity < 0.0 or humidity > 100.0)) or (temperature is not None and (temperature < 0.0 or temperature > 50.0)):
-                print('sensor misfunction, force close valve')
+                print('sensor malfunction, force close valve')
                 closeValve()
+                continue
         if humidity is not None and humidity < 60.0 and temperature is not None:
             if temperature >= hotTemp and (loopTimer - wateringTimer) >= wateringTimeout:           
                 print('humidity < 60%, watering 30 sec...\n')
