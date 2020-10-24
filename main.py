@@ -49,19 +49,19 @@ try:
                 print('sensor malfunction, force close valve')
                 closeValve()
                 continue
-        if humidity is not None and humidity < 60.0 and temperature is not None:
-            if temperature >= hotTemp and (loopTimer - wateringTimer) >= wateringTimeout:           
-                print('humidity < 60%, watering 30 sec...\n')
-                threadDispatcher('WATERING')
-                wateringTimer = time.time()
-            if (warmTemp <= temperature < hotTemp) and (loopTimer - wateringTimer) >= (wateringTimeout + warmTempWateringDelay):           
-                print('humidity < 60%, watering 30 sec...\n')
-                threadDispatcher('WATERING')
-                wateringTimer = time.time()
-            if (chillTemp <= temperature < warmTemp) and (loopTimer - wateringTimer) >= (wateringTimeout + chillTempWateringDelay):           
-                print('humidity < 60%, watering 30 sec...\n')
-                threadDispatcher('WATERING')
-                wateringTimer = time.time()
+            if humidity is not None and humidity < 60.0 and temperature is not None:
+                if temperature >= hotTemp and (loopTimer - wateringTimer) >= wateringTimeout:           
+                    print('humidity < 60%, watering 30 sec...\n')
+                    threadDispatcher('WATERING')
+                    wateringTimer = time.time()
+                if (warmTemp <= temperature < hotTemp) and (loopTimer - wateringTimer) >= (wateringTimeout + warmTempWateringDelay):           
+                    print('humidity < 60%, watering 30 sec...\n')
+                    threadDispatcher('WATERING')
+                    wateringTimer = time.time()
+                if (chillTemp <= temperature < warmTemp) and (loopTimer - wateringTimer) >= (wateringTimeout + chillTempWateringDelay):           
+                    print('humidity < 60%, watering 30 sec...\n')
+                    threadDispatcher('WATERING')
+                    wateringTimer = time.time()
                         
 except KeyboardInterrupt:
     closeValve()    #probably not thread-safe, must check
