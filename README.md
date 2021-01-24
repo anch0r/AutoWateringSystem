@@ -15,7 +15,7 @@ Board:  Raspberry pi 3 model B+
 
 Sensor: DHT22
 
-A 2-way 5V relay
+A 2-way 5V relay for building a simple H-bridge circuit
 
 A 3.3V DC motor valve controller(directly connect to the faucet)
 
@@ -33,7 +33,7 @@ Python 3.7.4
 
 ## Note
 
-For my experience, the DHT22 sensor is not durable, always cracks in 3 or less months(especially in high humidity environment).
+In my experience, the DHT22 sensor is not durable, always cracks in 3 or less months(especially in high humidity environment).
 
 Failed to read data, no response, lost of accuracy even if manually calibration ...all like these.
 
